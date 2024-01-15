@@ -86,7 +86,7 @@ def compare_ip_addresses(ip1, ip2, mask1=None, mask2=None):
 
     print(result_ip1, result_ip2)
     subnet_bit_count = str(binary_mask[0]).count("1")
-    return result_ip1 == result_ip2 and "".join(binary_ip[0])[-subnet_bit_count:] != "".join(binary_ip[1])[-subnet_bit_count:]
+    return "".join(result_ip1)[:subnet_bit_count] == "".join(result_ip2)[:subnet_bit_count]
 
 # Example use:
 # [in]:  compare_ip_addresses("10.10.112.34", "10.10.119.254")
