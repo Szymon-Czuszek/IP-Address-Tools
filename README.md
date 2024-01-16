@@ -26,7 +26,7 @@ print(binary_representation)
 # Output: ['00001010', '00001010', '01110000', '00100010']
 ```
 
-### 2. get_ip_class_info(ip_address)
+### 2. `get_ip_class_info(ip_address)`
 Determines the class information of an IP address.
 
 **Parameters:**
@@ -47,7 +47,7 @@ print(class_info)
 # Output: ('C', 24, '255.255.255.0')
 ```
 
-3. convert_ip_format(ip_address, output_format='b')
+### 3. `convert_ip_format(ip_address, output_format = 'b')`
 Converts an IP address between different formats (binary, hex, decimal).
 
 **Parameters:**
@@ -69,7 +69,7 @@ print(converted_ip)
 # Output: '192.168.241.14'
 ```
 
-4. compare_ip_addresses(ip1, ip2, mask1=None, mask2=None)
+### 4. `compare_ip_addresses(ip1, ip2, mask1 = None, mask2 = None)`
 Compares two IP addresses based on subnetting information.
 
 **Parameters:**
