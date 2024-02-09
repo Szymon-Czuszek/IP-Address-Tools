@@ -64,7 +64,7 @@ str: The converted IP address in the specified format.
 ```python
 from ip_address_tools import convert_ip_format
 
-converted_ip = convert_ip_format("192.168.241.14", output_format='b')
+converted_ip = convert_ip_format("192.168.241.14", output_format = 'b')
 print(converted_ip)
 # Output: '192.168.241.14'
 ```
