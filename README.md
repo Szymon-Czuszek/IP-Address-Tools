@@ -37,7 +37,7 @@ ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
 
 tuple: A tuple containing the IP class, subnet mask length, and default subnet mask.
   
-**Example Usage:**
+**🖥 Example Usage:**
 
 ```python
 from ip_address_tools import get_ip_class_info
