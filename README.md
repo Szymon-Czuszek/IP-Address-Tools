@@ -16,7 +16,7 @@ Converts an IP address to a list of binary strings for each octet.
 
 - `list`: A list of binary strings representing each octet.
 
-**Example Usage:**
+**🖥 Example Usage:**
 
 ```python
 from ip_address_tools import convert_ip_to_binary
