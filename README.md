@@ -83,7 +83,7 @@ mask2 (str, optional): The subnet mask for the second IP address.
 
 bool: True if the two IPs are subnets of the same net, False otherwise.
   
-**🖥 Example Usage:**
+**🖥 Example Usage compare_ip_addresses:**
 
 ```python
 from ip_address_tools import compare_ip_addresses
