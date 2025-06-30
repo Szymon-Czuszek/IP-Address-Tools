@@ -59,7 +59,7 @@ output_format (str, optional): The desired output format ('b' for binary, 'h' fo
 
 str: The converted IP address in the specified format.
 
-**🖥 Example Usage:**
+**🖥 Example Usage convert_ip_format:**
 
 ```python
 from ip_address_tools import convert_ip_format
