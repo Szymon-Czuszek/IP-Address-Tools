@@ -4,7 +4,7 @@ This Python module provides functions for working with IP addresses, including c
 
 ## Functions
 
-### 1. `convert_ip_to_binary(ip_address)`
+### ✅ 1. `convert_ip_to_binary(ip_address)`
 
 Converts an IP address to a list of binary strings for each octet.
 
