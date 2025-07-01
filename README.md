@@ -26,7 +26,7 @@ print(binary_representation)
 # Output: ['00001010', '00001010', '01110000', '00100010']
 ```
 
-### 2. `get_ip_class_info(ip_address)`
+### ✅ 2. `get_ip_class_info(ip_address)`
 Determines the class information of an IP address.
 
 **Parameters:**
