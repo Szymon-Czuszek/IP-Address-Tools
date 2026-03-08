@@ -2,7 +2,7 @@
 
 This Python module provides functions for working with IP addresses, including converting IP addresses to binary representation, determining their classes, and comparing them based on subnetting information.
 
-## Functions
+## 🧰 Functions
 
 ### ✅ 1. `convert_ip_to_binary(ip_address)`
 
