@@ -6,7 +6,7 @@
 ### ✅ 1. `convert_ip_to_binary(ip_address)`
 - 🔄 Converts an IP address to a list of binary strings for each octet.
 
-**Parameters:**
+**📥 Parameters:**
 
 - `ip_address (str)`: The input IP address in dot-decimal notation.
 
