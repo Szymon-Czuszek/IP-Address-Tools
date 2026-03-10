@@ -9,7 +9,7 @@
 **📥 Parameters:**
 - `ip_address (str)`: The input IP address in dot-decimal notation.
 
-**Returns:**
+**📤 Returns:**
 - `list`: A list of binary strings representing each octet.
 
 **🖥 Example Usage of convert_ip_to_binary:**
