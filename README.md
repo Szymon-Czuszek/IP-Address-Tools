@@ -7,7 +7,6 @@
 - 🔄 Converts an IP address to a list of binary strings for each octet.
 
 **📥 Parameters:**
-
 - `ip_address (str)`: The input IP address in dot-decimal notation.
 
 **Returns:**
