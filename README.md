@@ -45,7 +45,7 @@ print(class_info)
 ### ✅ 3. `convert_ip_format(ip_address, output_format = 'b')`
 Converts an IP address between different formats (binary, hex, decimal).
 
-**Parameters:**
+**📥 Parameters:**
 
 ip_address (str): The input IP address.
 output_format (str, optional): The desired output format ('b' for binary, 'h' for hex, 'd' for decimal). Default is 'b'.
