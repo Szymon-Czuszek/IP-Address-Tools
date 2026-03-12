@@ -67,7 +67,7 @@ print(converted_ip)
 ### ✅ 4. `compare_ip_addresses(ip1, ip2, mask1 = None, mask2 = None)`
 Compares two IP addresses based on subnetting information.
 
-**Parameters:**
+**📥 Parameters:**
 
 ip1 (str): The first IP address in dot-decimal, binary, or hex notation.
 ip2 (str): The second IP address in dot-decimal, binary, or hex notation.
