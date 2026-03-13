@@ -28,7 +28,7 @@ Determines the class information of an IP address.
 
 ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
 
-**Returns:**
+**📤 Returns:**
 
 tuple: A tuple containing the IP class, subnet mask length, and default subnet mask.
   
