@@ -25,8 +25,7 @@ print(binary_representation)
 Determines the class information of an IP address.
 
 **📥 Parameters:**
-
-ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
+- ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
 
 **📤 Returns:**
 
