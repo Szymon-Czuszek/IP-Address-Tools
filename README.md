@@ -71,8 +71,7 @@ mask1 (str, optional): The subnet mask for the first IP address.
 mask2 (str, optional): The subnet mask for the second IP address.
 
 **📤 Returns:**
-
-bool: True if the two IPs are subnets of the same net, False otherwise.
+- bool: True if the two IPs are subnets of the same net, False otherwise.
   
 **🖥 Example Usage compare_ip_addresses:**
 
