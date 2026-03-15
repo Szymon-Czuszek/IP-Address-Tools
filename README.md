@@ -82,6 +82,7 @@ result = compare_ip_addresses("10.10.112.34", "10.10.119.254")
 print(result)
 # Output: True
 ```
+
 ## 🤝 Contributing:
 - ✨ Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or create a pull request.
 
