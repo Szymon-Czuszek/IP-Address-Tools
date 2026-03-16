@@ -68,7 +68,7 @@ Compares two IP addresses based on subnetting information.
 - ip1 (str): The first IP address in dot-decimal, binary, or hex notation.
 - ip2 (str): The second IP address in dot-decimal, binary, or hex notation.
 - mask1 (str, optional): The subnet mask for the first IP address.
-mask2 (str, optional): The subnet mask for the second IP address.
+- mask2 (str, optional): The subnet mask for the second IP address.
 
 **📤 Returns:**
 - bool: True if the two IPs are subnets of the same net, False otherwise.
