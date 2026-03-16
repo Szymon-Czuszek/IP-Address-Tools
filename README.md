@@ -23,7 +23,7 @@ print(binary_representation)
 ```
 
 ### ✅ 2. `get_ip_class_info(ip_address)`
-Determines the class information of an IP address.
+- Determines the class information of an IP address.
 
 **📥 Parameters:**
 - ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
