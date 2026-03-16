@@ -49,7 +49,7 @@ Converts an IP address between different formats (binary, hex, decimal).
 - output_format (str, optional): The desired output format ('b' for binary, 'h' for hex, 'd' for decimal). Default is 'b'.
 
 **📤 Returns:**
-str: The converted IP address in the specified format.
+- str: The converted IP address in the specified format.
 
 **🖥 Example Usage convert_ip_format:**
 
