@@ -5,6 +5,7 @@
 ## 🧰 Functions
 
 ### ✅ 1. `convert_ip_to_binary(ip_address)`
+
 - 🔄 Converts an IP address to a list of binary strings for each octet.
 
 **📥 Parameters:**
