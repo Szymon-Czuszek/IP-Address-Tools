@@ -35,6 +35,7 @@ print(binary_representation)
 - ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
 
 **📤 Returns:**
+
 - tuple: A tuple containing the IP class, subnet mask length, and default subnet mask.
   
 **🖥 Example Usage get_ip_class_info:**
