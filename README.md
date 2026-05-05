@@ -72,6 +72,7 @@ print(converted_ip)
 ```
 
 ### ✅ 4. `compare_ip_addresses(ip1, ip2, mask1 = None, mask2 = None)`
+
 Compares two IP addresses based on subnetting information.
 
 **📥 Parameters:**
