@@ -1,27 +1,187 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+"""
+===============================================================================
+IP Address to Binary Converter
+===============================================================================
+
+This script converts an IPv4 address written in dot-decimal notation
+into its binary representation.
+
+Each octet of the IP address is:
+- separated using the dot character "."
+- converted into an integer
+- transformed into binary format
+- padded to 8 bits
+
+Example:
+-----------------------------------------------------------------------
+Input:
+    10.10.112.34
+
+Output:
+    ['00001010', '00001010', '01110000', '00100010']
+
+This type of conversion is commonly used in:
+- networking
+- subnetting
+- cybersecurity
+- routing analysis
+- CCNA/CCNP studies
+"""
 
 
 def convert_ip_to_binary(ip_address):
     """
-    Converts an IP address to a list of binary strings for each octet.
+    Converts an IPv4 address into binary representation.
 
-    Parameters:
-    - ip_address (str): The input IP address in dot-decimal notation.
+    Parameters
+    -------------------------------------------------------------------
+    ip_address : str
+        IPv4 address written in dot-decimal notation.
 
-    Returns:
-    - list: A list of binary strings representing each octet.
+        Example:
+            "192.168.1.1"
+
+    Returns
+    -------------------------------------------------------------------
+    list
+        List containing binary strings for each octet.
+
+        Example:
+            [
+                '11000000',
+                '10101000',
+                '00000001',
+                '00000001'
+            ]
     """
+
+    # Create empty list for binary octets
     binary_list = []
+
+    # Split IP address into separate octets
     for octet in ip_address.split("."):
-        binary_list.append(str(format(int(octet), "b")).rjust(8, "0"))
+
+        # Convert octet to integer
+        # Convert integer to binary
+        # Pad binary string to 8 bits
+        binary_octet = str(
+            format(int(octet), "b")
+        ).rjust(8, "0")
+
+        # Store binary octet in result list
+        binary_list.append(binary_octet)
+
+    # Return final binary representation
     return binary_list
 
-# Example use:
-# [in]:  convert_ip_to_binary("10.10.112.34")
-# [out]: ['00001010', '00001010', '01110000', '00100010']
+
+#==============================================================================
+# Example Usage
+#==============================================================================
+
+# Input IPv4 address
+example_ip = "10.10.112.34"
+
+# Convert IP address to binary
+binary_result = convert_ip_to_binary(example_ip)
+
+# Display result
+print(binary_result)
+
+
+#==============================================================================
+# Expected Output
+#==============================================================================
+
+# [
+#     '00001010',
+#     '00001010',
+#     '01110000',
+#     '00100010'
+# ]
+
+
+#==============================================================================
+# Commentary
+#==============================================================================
+
+"""
+ip_address.split(".")
+-----------------------------------------------------------------------
+Splits the IPv4 address into four separate octets.
+
+Example:
+-----------------------------------------------------------------------
+"192.168.1.1"
+
+becomes:
+
+[
+    "192",
+    "168",
+    "1",
+    "1"
+]
+
+
+format(int(octet), "b")
+-----------------------------------------------------------------------
+Converts:
+1. string octet -> integer
+2. integer -> binary representation
+
+Example:
+-----------------------------------------------------------------------
+10 -> '1010'
+
+
+rjust(8, "0")
+-----------------------------------------------------------------------
+Pads the binary string with leading zeros
+to ensure every octet contains exactly 8 bits.
+
+Example:
+-----------------------------------------------------------------------
+'1010'
+
+becomes:
+
+'00001010'
+
+
+Why 8 Bits?
+-----------------------------------------------------------------------
+IPv4 addresses consist of:
+- 4 octets
+- each octet contains 8 bits
+
+Total:
+-----------------------------------------------------------------------
+32 bits
+
+
+Practical Use Cases
+-----------------------------------------------------------------------
+- Network engineering
+- Subnet calculations
+- Firewall configuration
+- Routing analysis
+- Cybersecurity training
+- Packet inspection
+- CCNA/Networking education
+
+
+Example Conversion
+-----------------------------------------------------------------------
+Decimal IP:
+    10.10.112.34
+
+Binary Representation:
+    00001010.00001010.01110000.00100010
+"""
 
 
 # In[2]:
