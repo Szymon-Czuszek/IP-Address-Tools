@@ -184,51 +184,353 @@ Binary Representation:
 """
 
 
-# In[2]:
+#==============================================================================
+# IP Address Class Identification
+#==============================================================================
+
+"""
+This script determines the class of an IPv4 address.
+
+The function supports multiple input formats:
+- Dot-decimal notation
+- Binary notation
+- Hexadecimal notation
+
+The script identifies:
+- IP address class
+- Default subnet mask length
+- Default subnet mask
+
+Supported Classes:
+-----------------------------------------------------------------------
+Class A -> Large networks
+Class B -> Medium networks
+Class C -> Small networks
+Class D -> Multicast
+Class E -> Experimental
+
+Example:
+-----------------------------------------------------------------------
+Input:
+    192.168.1.1
+
+Output:
+    ('C', 24, '255.255.255.0')
+"""
 
 
 def get_ip_class_info(ip_address):
     """
-    Determines the class information of an IP address.
+    Determines IPv4 address class information.
 
-    Parameters:
-    - ip_address (str): The input IP address in dot-decimal, binary, or hex notation.
+    Parameters
+    -------------------------------------------------------------------
+    ip_address : str
+        IPv4 address in one of the following formats:
+        - Dot-decimal
+        - Binary
+        - Hexadecimal
 
-    Returns:
-    - tuple: A tuple containing the IP class, subnet mask length, and default subnet mask.
+        Examples:
+            "192.168.1.1"
+            "11000000.10101000.00000001.00000001"
+            "C0.A8.01.01"
+
+    Returns
+    -------------------------------------------------------------------
+    tuple
+        Contains:
+        (
+            IP class,
+            subnet mask length,
+            default subnet mask
+        )
+
+        Example:
+            ('C', 24, '255.255.255.0')
     """
-    # Convert the input IP address to dot-decimal notation
+
+    #==========================================================================
+    # STEP 1: Convert input to dot-decimal notation
+    #==========================================================================
+
+    # Detect hexadecimal notation
     if any(c.isalpha() for c in ip_address):
-        # If it contains letters, assume hex
-        ip_address = '.'.join(str(int(octet, 16)) for octet in ip_address.split('.'))
-    elif ip_address.count('.') == 3 and len(ip_address.split('.')[0]) == 8:
-        # If it has 8 characters until the first dot, assume binary
-        ip_address = '.'.join(str(int(octet, 2)) for octet in ip_address.split('.'))
+
+        # Convert hexadecimal octets to decimal
+        ip_address = '.'.join(
+            str(int(octet, 16))
+            for octet in ip_address.split('.')
+        )
+
+    # Detect binary notation
+    elif (
+        ip_address.count('.') == 3
+        and len(ip_address.split('.')[0]) == 8
+    ):
+
+        # Convert binary octets to decimal
+        ip_address = '.'.join(
+            str(int(octet, 2))
+            for octet in ip_address.split('.')
+        )
+
+    #==========================================================================
+    # STEP 2: Extract first octet
+    #==========================================================================
 
     first_octet = int(ip_address.split(".")[0])
+
+    #==========================================================================
+    # STEP 3: Determine IP address class
+    #==========================================================================
+
+    # Class A
     if first_octet in range(0, 128):
-        return "A", 8, "255.0.0.0"
+
+        return (
+            "A",
+            8,
+            "255.0.0.0"
+        )
+
+    # Class B
     elif first_octet in range(128, 192):
-        return "B", 16, "255.255.0.0"
+
+        return (
+            "B",
+            16,
+            "255.255.0.0"
+        )
+
+    # Class C
     elif first_octet in range(192, 224):
-        return "C", 24, "255.255.255.0"
+
+        return (
+            "C",
+            24,
+            "255.255.255.0"
+        )
+
+    # Class D (Multicast)
     elif first_octet in range(224, 240):
-        return "D", None, None
+
+        return (
+            "D",
+            None,
+            None
+        )
+
+    # Class E (Experimental)
     elif first_octet in range(240, 256):
-        return "E", None, None
+
+        return (
+            "E",
+            None,
+            None
+        )
+
+    # Invalid IP address
     else:
-        raise ValueError(f"{ip_address} isn't a valid IP address!")
 
-# Example use:
-# [in]:  get_ip_class_info("192.168.1.1")
-# [out]: ('C', 24, '255.255.255.0')
+        raise ValueError(
+            f"{ip_address} isn't a valid IP address!"
+        )
 
-# [in]:  get_ip_class_info("11000000.10101000.00000001.00000001")
-# [out]: ('C', 24, '255.255.255.0')
 
-# [in]:  get_ip_class_info("C0.A8.01.01")
-# [out]: ('C', 24, '255.255.255.0')
+#==============================================================================
+# Example Usage
+#==============================================================================
 
+# Example 1: Dot-decimal notation
+print(
+    get_ip_class_info("192.168.1.1")
+)
+
+# Example 2: Binary notation
+print(
+    get_ip_class_info(
+        "11000000.10101000.00000001.00000001"
+    )
+)
+
+# Example 3: Hexadecimal notation
+print(
+    get_ip_class_info("C0.A8.01.01")
+)
+
+
+#==============================================================================
+# Expected Output
+#==============================================================================
+
+# ('C', 24, '255.255.255.0')
+# ('C', 24, '255.255.255.0')
+# ('C', 24, '255.255.255.0')
+
+
+#==============================================================================
+# Commentary
+#==============================================================================
+
+"""
+Input Format Detection
+-----------------------------------------------------------------------
+The function automatically detects whether the input is:
+- hexadecimal
+- binary
+- decimal
+
+This makes the function flexible and reusable.
+
+
+Hexadecimal Detection
+-----------------------------------------------------------------------
+any(c.isalpha() for c in ip_address)
+
+Checks whether the address contains alphabetic characters:
+- A
+- B
+- C
+- D
+- E
+- F
+
+If yes:
+- assumes hexadecimal notation
+
+
+Hexadecimal Conversion
+-----------------------------------------------------------------------
+int(octet, 16)
+
+Converts hexadecimal octets into decimal values.
+
+Example:
+-----------------------------------------------------------------------
+"C0"
+
+becomes:
+
+192
+
+
+Binary Detection
+-----------------------------------------------------------------------
+len(ip_address.split('.')[0]) == 8
+
+Binary octets typically contain exactly 8 bits.
+
+Example:
+-----------------------------------------------------------------------
+11000000
+
+
+Binary Conversion
+-----------------------------------------------------------------------
+int(octet, 2)
+
+Converts binary strings into decimal numbers.
+
+Example:
+-----------------------------------------------------------------------
+11000000
+
+becomes:
+
+192
+
+
+IP Address Classes
+-----------------------------------------------------------------------
+
+Class A
+--------
+Range:
+    0 - 127
+
+Default Mask:
+    255.0.0.0
+
+CIDR:
+    /8
+
+
+Class B
+--------
+Range:
+    128 - 191
+
+Default Mask:
+    255.255.0.0
+
+CIDR:
+    /16
+
+
+Class C
+--------
+Range:
+    192 - 223
+
+Default Mask:
+    255.255.255.0
+
+CIDR:
+    /24
+
+
+Class D
+--------
+Range:
+    224 - 239
+
+Purpose:
+    Multicast
+
+
+Class E
+--------
+Range:
+    240 - 255
+
+Purpose:
+    Experimental / Reserved
+
+
+ValueError
+-----------------------------------------------------------------------
+Raises an exception if:
+- input format is invalid
+- octets are outside valid ranges
+
+
+Practical Use Cases
+-----------------------------------------------------------------------
+- Networking education
+- Subnetting exercises
+- CCNA preparation
+- IP classification tools
+- Cybersecurity analysis
+- Network automation
+- Infrastructure validation
+
+
+Example Conversion Flow
+-----------------------------------------------------------------------
+
+Input:
+    C0.A8.01.01
+
+Hexadecimal Conversion:
+    192.168.1.1
+
+Class Detection:
+    Class C
+
+Output:
+    ('C', 24, '255.255.255.0')
+"""
 
 # In[3]:
 
