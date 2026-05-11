@@ -3,7 +3,7 @@
 
 """
 ===============================================================================
-IP Address to Binary Converter
+1. IP Address to Binary Converter
 ===============================================================================
 
 This script converts an IPv4 address written in dot-decimal notation
