@@ -860,56 +860,330 @@ Result:
     C0.A8.F1.0E
 """
 
-# In[4]:
+#==============================================================================
+# IP Address Format Converter
+#==============================================================================
+
+"""
+This script converts IPv4 addresses between multiple formats:
+
+Supported Formats
+-----------------------------------------------------------------------
+'b' -> Binary
+'h' -> Hexadecimal
+'d' -> Decimal (dot-decimal notation)
+
+The function automatically detects the input format
+and converts it into the desired output format.
+
+Example Conversions
+-----------------------------------------------------------------------
+Decimal:
+    192.168.241.14
+
+Binary:
+    11000000.10101000.11110001.00001110
+
+Hexadecimal:
+    C0.A8.F1.0E
+
+This type of functionality is commonly used in:
+- networking
+- cybersecurity
+- subnetting
+- infrastructure automation
+- packet analysis
+"""
 
 
-def compare_ip_addresses(ip1, ip2, mask1 = None, mask2 = None):
+def convert_ip_format(ip_address, output_format='b'):
     """
-    Compares two IP addresses based on subnetting information.
+    Converts IPv4 addresses between decimal, binary,
+    and hexadecimal formats.
 
-    Parameters:
-    - ip1 (str): The first IP address in dot-decimal, binary, or hex notation.
-    - ip2 (str): The second IP address in dot-decimal, binary, or hex notation.
-    - mask1 (str, optional): The subnet mask for the first IP address.
-    - mask2 (str, optional): The subnet mask for the second IP address.
+    Parameters
+    -------------------------------------------------------------------
+    ip_address : str
+        Input IPv4 address.
 
-    Returns:
-    - bool: True if the two IPs belong to different subnets, False otherwise.
+    output_format : str, optional
+        Desired output format:
+        - 'b' -> binary
+        - 'h' -> hexadecimal
+        - 'd' -> decimal
+
+        Default:
+            'b'
+
+    Returns
+    -------------------------------------------------------------------
+    str
+        Converted IPv4 address in requested format.
     """
-    # Convert IP addresses to dot-decimal notation
-    ip1_decimal = convert_ip_format(ip1, output_format = 'd')
-    ip2_decimal = convert_ip_format(ip2, output_format = 'd')
 
-    binary_ip = convert_ip_to_binary(ip1_decimal), convert_ip_to_binary(ip2_decimal)
-    if mask1 is None or mask2 is None:
-        binary_mask = convert_ip_to_binary(get_ip_class_info(ip1_decimal)[2]), convert_ip_to_binary(get_ip_class_info(ip2_decimal)[2])
+    #==========================================================================
+    # STEP 1: Detect input format
+    #==========================================================================
+
+    # Detect hexadecimal notation
+    if any(c.isalpha() for c in ip_address):
+
+        input_format = 'h'
+
+    # Detect binary notation
+    elif (
+        ip_address.count('.') == 3
+        and len(ip_address.split('.')[0]) == 8
+    ):
+
+        input_format = 'b'
+
+    # Otherwise assume decimal notation
     else:
-        binary_mask = convert_ip_to_binary(mask1), convert_ip_to_binary(mask2)
 
-    print(binary_ip[0], binary_ip[1])
-    print(binary_mask[0], binary_mask[1])
+        input_format = 'd'
 
-    result_ip1 = []
-    result_ip2 = []
-    for a, b, c, d in zip(binary_ip[0], binary_mask[0], binary_ip[1], binary_mask[1]):
-        subnet_bits = ""
-        host_bits = ""
-        for i in range(8):
-            subnet_bits += str(int(a[i]) and int(b[i]))
-            host_bits += str(int(c[i]) and int(d[i]))
-        result_ip1.append(subnet_bits)
-        result_ip2.append(host_bits)
+    #==========================================================================
+    # STEP 2: Check whether conversion is necessary
+    #==========================================================================
 
-    print(result_ip1, result_ip2)
-    subnet_bit_count = str(binary_mask[0]).count("1")
-    return "".join(result_ip1)[:subnet_bit_count] == "".join(result_ip2)[:subnet_bit_count]
+    if input_format == output_format:
 
-# Example use:
-# [in]:  compare_ip_addresses("10.10.112.34", "10.10.119.254")
-# [out]: ['00001010', '00001010', '01110000', '00100010'] ['00001010', '00001010', '01110111', '11111110']
-#        ['11111111', '00000000', '00000000', '00000000'] ['11111111', '00000000', '00000000', '00000000']
-#        ['00001010', '00000000', '00000000', '00000000'] ['00001010', '00000000', '00000000', '00000000']
-#        True
+        # Return original value unchanged
+        return ip_address
+
+    #==========================================================================
+    # STEP 3: Convert input address into binary representation
+    #==========================================================================
+
+    # Input already in binary
+    if input_format == 'b':
+
+        binary_list = ip_address.split('.')
+
+    # Convert hexadecimal to binary
+    elif input_format == 'h':
+
+        hex_octets = ip_address.split('.')
+
+        binary_list = [
+            format(int(hex_octet, 16), '08b')
+            for hex_octet in hex_octets
+        ]
+
+    # Convert decimal to binary
+    else:
+
+        binary_list = [
+            format(int(octet), '08b')
+            for octet in ip_address.split('.')
+        ]
+
+    #==========================================================================
+    # STEP 4: Convert binary representation into desired output format
+    #==========================================================================
+
+    # Convert to decimal
+    if output_format == 'd':
+
+        return '.'.join(
+            str(int(binary, 2))
+            for binary in binary_list
+        )
+
+    # Convert to hexadecimal
+    elif output_format == 'h':
+
+        return '.'.join(
+            hex(int(binary, 2))[2:].upper()
+            for binary in binary_list
+        )
+
+    # Return binary format
+    else:
+
+        return '.'.join(binary_list)
 
 
-# ###### The End
+#==============================================================================
+# Example Usage
+#==============================================================================
+
+# Decimal -> Binary
+print(
+    convert_ip_format(
+        "192.168.241.14",
+        output_format='b'
+    )
+)
+
+# Decimal -> Hexadecimal
+print(
+    convert_ip_format(
+        "192.168.241.14",
+        output_format='h'
+    )
+)
+
+# Binary -> Decimal
+print(
+    convert_ip_format(
+        "11000000.10101000.11110001.00001110",
+        output_format='d'
+    )
+)
+
+# Hexadecimal -> Decimal
+print(
+    convert_ip_format(
+        "C0.A8.F1.0E",
+        output_format='d'
+    )
+)
+
+
+#==============================================================================
+# Expected Output
+#==============================================================================
+
+# 11000000.10101000.11110001.00001110
+# C0.A8.F1.0E
+# 192.168.241.14
+# 192.168.241.14
+
+
+#==============================================================================
+# Commentary
+#==============================================================================
+
+"""
+Automatic Input Detection
+-----------------------------------------------------------------------
+The function automatically identifies whether the input is:
+- binary
+- hexadecimal
+- decimal
+
+This makes the converter flexible and user-friendly.
+
+
+Hexadecimal Detection
+-----------------------------------------------------------------------
+any(c.isalpha() for c in ip_address)
+
+Checks whether the address contains letters:
+- A
+- B
+- C
+- D
+- E
+- F
+
+If yes:
+- input is treated as hexadecimal
+
+
+Binary Detection
+-----------------------------------------------------------------------
+len(ip_address.split('.')[0]) == 8
+
+Binary octets normally contain exactly 8 bits.
+
+Example:
+-----------------------------------------------------------------------
+11000000
+
+
+format(..., '08b')
+-----------------------------------------------------------------------
+Converts numbers into 8-bit binary strings.
+
+Example:
+-----------------------------------------------------------------------
+192
+
+becomes:
+
+11000000
+
+
+int(binary, 2)
+-----------------------------------------------------------------------
+Converts binary values into decimal numbers.
+
+Example:
+-----------------------------------------------------------------------
+11000000
+
+becomes:
+
+192
+
+
+hex(...)[2:].upper()
+-----------------------------------------------------------------------
+Converts decimal values into hexadecimal notation.
+
+Breakdown:
+-----------------------------------------------------------------------
+hex(192)      -> '0xc0'
+[2:]          -> removes '0x'
+upper()       -> converts to uppercase
+
+Final Result:
+-----------------------------------------------------------------------
+C0
+
+
+Why Binary Conversion First?
+-----------------------------------------------------------------------
+The script standardizes all conversions through binary format.
+
+Advantages:
+- simplifies conversion logic
+- reduces duplicated code
+- improves maintainability
+
+
+Supported Conversion Paths
+-----------------------------------------------------------------------
+
+Decimal -> Binary
+Decimal -> Hexadecimal
+
+Binary -> Decimal
+Binary -> Hexadecimal
+
+Hexadecimal -> Decimal
+Hexadecimal -> Binary
+
+
+Practical Use Cases
+-----------------------------------------------------------------------
+- Networking education
+- CCNA/CCNP training
+- Cybersecurity exercises
+- Packet analysis
+- Infrastructure automation
+- IP address validation
+- Subnetting calculations
+
+
+Example Conversion Flow
+-----------------------------------------------------------------------
+
+Input:
+    192.168.241.14
+
+Step 1:
+    Convert decimal -> binary
+
+Result:
+    11000000.10101000.11110001.00001110
+
+Step 2:
+    Convert binary -> hexadecimal
+
+Result:
+    C0.A8.F1.0E
+"""
