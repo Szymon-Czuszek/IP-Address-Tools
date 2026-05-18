@@ -84,7 +84,7 @@ Compares two IP addresses based on subnetting information.
 
 **📤 Returns:**
 
-- bool: True if the two IPs are subnets of the same net, False otherwise.
+- bool: True if the two IPs are subnets of the same net, otherwise the output is False.
   
 **🖥 Example Usage compare_ip_addresses:**
 
